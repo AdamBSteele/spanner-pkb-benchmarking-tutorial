@@ -1,7 +1,7 @@
 # Benchmarking Cloud Spanner with PerfKit Benchmarker
 
 This is a hands-on lab/tutorial for generating benchmarks for Google Cloud
-Spanner.
+Spanner. See the [methodology section](#benchmark-methodology) for best practices and tips for benchmarking Spanner.
 
 ## Overview
 
