@@ -381,14 +381,14 @@ folder. You can also modify those workloads to run your own custom benchmarks.
 
 For example, you can run a write-only throughput benchmark by setting the
 `--benchmark_config_file` argument to point at the
-[throughput/workloadx.yaml](./data/throughput/workloadx.yaml) PKB
+[throughput_benchmarks/workloadx.yaml](./data/throughput_benchmarks/workloadx.yaml) PKB
 Configuration file.
 
 Example: Write-only throughput benchmark command:
 
 ```sh
 $HOME/PerfKitBenchmarker/pkb.py \
---benchmark_config_file=$HOME/Benchmarking/data/data/throughput/workloadx.yaml \
+--benchmark_config_file=$HOME/Benchmarking/data/data/throughput_benchmarks/workloadx.yaml \
 --bigquery_table=pkb_results.spanner_benchmarks
 ```
 
