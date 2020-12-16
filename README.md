@@ -41,7 +41,7 @@ Workloads:
 When you finish this tutorial, you will have the tools needed to create your own
 combination of PKB Configurations and YCSB Workloads to run custom benchmarks.
 
-## What you'll do
+### What you'll do
 
 This lab demonstrates an end-to-end workflow for running benchmark tests and
 uploading the result data to Google Cloud.
@@ -54,7 +54,7 @@ In this lab, you will:
 *   Work with the test result data in BigQuery
 *   Learn how to run your own benchmarks for throughput and latency
 
-## Prerequisites
+### Prerequisites
 
 *   Basic familiarity with Linux command line
 *   Basic familiarity with Google Cloud
@@ -141,7 +141,7 @@ Once connected to the Cloud Shell, you can verify your setup.
     Updated property [core/project].
     ```
 
-## Task 1. Create a Virtual Machine in Google Compute Engine to execute Benchmarks
+### Task 1. Create a Virtual Machine in Google Compute Engine to execute Benchmarks
 
 From the Cloud Shell, create a new Google Compute Engine (GCE) VM with the necessary scopes.
 
@@ -152,7 +152,7 @@ gcloud compute instances create pkb-host \
   --zone=us-west1-a
 ```
 
-## Task 2. Install PerfKit Benchmarker within the GCE instance
+### Task 2. Install PerfKit Benchmarker within the GCE instance
 
 SSH into the GCE VM created in Step 1 and install the required Github Repositories.
 
@@ -207,7 +207,7 @@ Run all following commands from within the GCE VM.
     ```
 
 
-## Task 3. Create a BigQuery dataset for benchmark result data storage
+### Task 3. Create a BigQuery dataset for benchmark result data storage
 
 By default, PKB logs test output to the terminal and to result files under
 `/tmp/perfkitbenchmarker/runs/`.
@@ -236,7 +236,7 @@ You can also create datasets using the
 dataset can be named anything, but you need to use the dataset name in options
 on the command-line when you run tests.
 
-## Task 4. Run a benchmark test
+### Task 4. Run a benchmark test
 
 Now that you've installed Perfkit Benchmarker into your GCE VM, you can run benchmark tests from within the VM.
 
@@ -364,7 +364,7 @@ __Note__: This tutorial splits the benchmarks into two workload categories:
     You can also see your data using the __Query editor__ in the
     [BigQuery UI](https://console.cloud.google.com/bigquery).
 
-## Task 5. Run more benchmarks
+### Task 5. Run more benchmarks
 
 You can use the .yaml files in the [data folder](./data) to run latency or throughput benchmarks on some of the 
 common workloads provided by [ycsb](https://github.com/GoogleCloudPlatform/PerfKitBenchmarker/blob/07de8d5b6f59eb477c39e770ec83d32164ea9b0b/perfkitbenchmarker/data/ycsb/)
@@ -392,7 +392,7 @@ $HOME/PerfKitBenchmarker/pkb.py \
 --bigquery_table=pkb_results.spanner_benchmarks
 ```
 
-## Cleanup
+### Cleanup
 
 When you are finished running benchmarks, you should delete the `pkb-benchmarks`
 Spanner instance and the `pkb-host` GCE VM. You can delete these with the following commands in
