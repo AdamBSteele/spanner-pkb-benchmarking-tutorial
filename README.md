@@ -180,16 +180,9 @@ Run all following commands from within the GCE VM.
 
 1.  Clone the PerfKitBenchmarker GitHub Repository.
 
-    > __Note__: For compatibility and consistency, these instructions are pinned
-    > to version
-    > [1.15.1](https://github.com/GoogleCloudPlatform/PerfKitBenchmarker/releases/tag/v1.15.1)
-    > of PerfKit Benchmarker.
-
     ```sh
     cd $HOME
     git clone https://github.com/GoogleCloudPlatform/PerfKitBenchmarker.git
-    cd $HOME/PerfKitBenchmarker/
-    git checkout v1.15.1
     ```
 
 1.  Install PKB dependencies.
