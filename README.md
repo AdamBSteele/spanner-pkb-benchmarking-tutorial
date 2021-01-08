@@ -251,12 +251,12 @@ Workloads:
 __Note__: This tutorial splits the benchmarks into two workload categories:
 
 *   [throughput.yaml](./data/throughput_benchmarks): Maximum-throughput workloads
-*   [latency.yaml](./data/latency_benchmarks_benchmarks): Latency-sensitive workloads
+*   [latency.yaml](./data/latency_benchmarks): Latency-sensitive workloads
 
 1.  Grab and review the PKB Configuration file for latency testing.
 
     ```sh
-    cat $HOME/Benchmarking/data/latency_benchmarks_benchmarks/workloada.yaml
+    cat $HOME/Benchmarking/data/latency_benchmarks/workloada.yaml
     ```
 
     __Output (do not copy)__
