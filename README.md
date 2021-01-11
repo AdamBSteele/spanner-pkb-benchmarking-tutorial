@@ -148,7 +148,7 @@ From the Cloud Shell, create a new Google Compute Engine (GCE) VM with the neces
 ```sh
 gcloud compute instances create pkb-host \
   --scopes="https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/spanner.admin,https://www.googleapis.com/auth/bigquery" \
-  --machine_type=n1-standard-1 \
+  --machine-type=n1-standard-1 \
   --zone=us-west1-a
 ```
 
@@ -160,7 +160,7 @@ SSH into the GCE VM created in Step 1 and install the required Github Repositori
     ```sh
     gcloud compute ssh pkb-host --zone=us-west1-a
     ```
-
+If you are running into issues with ssh timing out, you can alternatively access your VM instance via the Compute Engine page and click SSH under remote access.
 
 Run all following commands from within the GCE VM.
 
@@ -407,6 +407,15 @@ bq rm pkb_results
 
 You have completed the Spanner PerfKit Benchmarker tutorial!
 
+## Troubleshooting
+### Connection timed out
+Your test may fail with the following error:
+`STDOUT: STDERR: ssh: connect to host xxx.xxx.xxx.xxx port 22: Connection timed out in CreateAndBootVm`
+This is a transient error that sometimes occur during a run. This error occurs at a higher frequency for larger instances / number of client VMs. You can rerun to get rid of this error. Alternatively, you can amend [this line in pkb](https://github.com/GoogleCloudPlatform/PerfKitBenchmarker/blob/46fe3bf4dc71e7357ab75c491c6a0d47037c2b19/perfkitbenchmarker/linux_packages/ycsb.py#L1206) to become  
+`vm.RemoteCommand('sudo rm -f ' + remote_path, ignore_failure=True)`
+(add the ignore_failure=True flag)
+
+
 ## Benchmark Methodology
 
 ### Use-Cases
@@ -430,6 +439,8 @@ During throughput benchmarks, Spanner High-Priority CPU was maintained above the
 A Regional Cloud Spanner instance is spread across three zones. In case of a zonal failure, Spanner will shift traffic from the downed zone to the remaining two zones. Any application running above the 65% CPU Utilization guidance should be prepared to modify instance provisioning and/or  application behavior to avoid overwhelming the remaining zones.
 If your application consistently runs above the published 65% guidance, consider employing an [Autoscaler](https://github.com/cloudspannerecosystem/autoscaler) to dynamically provision the application’s Spanner resources based on CPU load.
 
+### Configuring target QPS
+This benchmark allows you to set any number as the target QPS, so what number should you use? This will depend on your actual workload. For example, if you are just curious how far you can push Cloud Spanner, you can set this target QPS to an arbitrarily high number. YCSB will then issue as many QPS as Cloud Spanner can handle. Do note that this will push CPU utilization to 100% and the latency for each request may be well beyond that typical applications can handle. Another way to run this benchmark is to gradually ramp up QPS until latency numbers are beyond what your application can tolerate. For example, starting with X qps per node, and gradually ramp up till Y QPS while P50 < 5ms, P90 < 20ms and P99 latencies at < 200ms.
 
 ### Provisioning
 
