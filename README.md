@@ -196,7 +196,7 @@ Run all following commands from within the GCE VM.
 1.  Clone the Cloud Spanner Ecosystem Benchmarking GitHub Repository.
 
     ```sh
-    cd $HOME && git clone https://github.com/cloudspannerecosystem/Benchmarking.git
+    cd $HOME && git clone https://github.com/AdamBSteele/spanner-pkb-benchmarking-tutorial.git
     ```
 
 
@@ -249,7 +249,7 @@ __Note__: This tutorial splits the benchmarks into two workload categories:
 1.  Grab and review the PKB Configuration file for latency testing.
 
     ```sh
-    cat $HOME/Benchmarking/data/latency_benchmarks/workloada.yaml
+    cat $HOME/spanner-pkb-benchmarking-tutorial/data/latency_benchmarks/workloada.yaml
     ```
 
     __Output (do not copy)__
@@ -310,9 +310,15 @@ __Note__: This tutorial splits the benchmarks into two workload categories:
     > resources.
 
     ```sh
-    $HOME/PerfKitBenchmarker/pkb.py \
-      --benchmark_config_file=$HOME/Benchmarking/data/latency_benchmarks/workloada.yaml \
-      --bigquery_table=pkb_results.spanner_benchmarks
+    nohup $HOME/PerfKitBenchmarker/pkb.py \
+      --benchmark_config_file=$HOME/spanner-pkb-benchmarking-tutorial/data/latency_benchmarks/workloada.yaml \
+      --bigquery_table=pkb_results.spanner_benchmarks \
+      --file_log_level=info > nohup.out &
+    ```
+
+1.  Follow the output of the pkb command using tail:
+    ```sh
+    tail -f nohup.out
     ```
 
 1.  Monitor the benchmark in action.
@@ -381,18 +387,16 @@ Example: Write-only throughput benchmark command:
 
 ```sh
 $HOME/PerfKitBenchmarker/pkb.py \
---benchmark_config_file=$HOME/Benchmarking/data/data/throughput_benchmarks/workloadx.yaml \
+--benchmark_config_file=$HOME/spanner-pkb-benchmarking-tutorial/data/data/throughput_benchmarks/workloadx.yaml \
 --bigquery_table=pkb_results.spanner_benchmarks
 ```
 
 ### Cleanup
 
-When you are finished running benchmarks, you should delete the `pkb-benchmarks`
-Spanner instance and the `pkb-host` GCE VM. You can delete these with the following commands in
+When you are finished running benchmarks, you should delete the `pkb-host` GCE VM. You can delete these with the following command in
 Cloud Shell:
 
 ```sh
-gcloud spanner instances delete pkb-benchmarks
 gcloud compute instances delete pkb-host --zone=us-west1-a
 ```
 
